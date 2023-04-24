@@ -1,4 +1,6 @@
+import * as fs from 'fs';
 import { CodeError } from "@/index";
+import { logs } from "../utils/logs"
 import { definitionsParams } from "./definitions/params";
 
 class HeadersFiles {
@@ -6,7 +8,14 @@ class HeadersFiles {
         let errorsArray: CodeError[] = []; 
 
         for (const file of filesArray) {
-            errorsArray.concat(definitionsParams(file));
+            const fileExtention = file.split(".");
+            const fileContent = fs.readFileSync(file,'utf8');
+
+            if (fileExtention.length < 2 || fileExtention.at(-1) != "h") {
+                logs.error("File extention", "The file must be a header");
+                return [];
+            }
+            errorsArray.concat(definitionsParams(fileContent));
         }
         return errorsArray;
     }
