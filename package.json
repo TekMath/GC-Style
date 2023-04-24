@@ -1,0 +1,15 @@
+{
+  "name": "gc-style",
+  "version": "1.0.0",
+  "description": "G-Epitech coding-style",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.16.0",
+    "typescript": "^5.0.4"
+  }
+}
