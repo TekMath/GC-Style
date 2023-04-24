@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { logs } from "./utils/logs"
+import { logs } from "../utils/logs"
 
 /**
  * 
