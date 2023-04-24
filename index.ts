@@ -1,4 +1,4 @@
-import { getFiles } from "./src/files";
+import { getFiles } from "./src/parse/files";
 import { HeadersFiles } from "./src/headers";
 
 export type CodeError = {
