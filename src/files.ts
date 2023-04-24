@@ -21,7 +21,7 @@ async function getFiles(directoryPath: string, extention: string): Promise<strin
 
                 filesArray = filesArray.concat(array);
             } else if (fileExtention == extention) {
-                filesArray.push(file);
+                filesArray.push(fullPath);
             }
         })
     ).catch((err) => {

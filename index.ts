@@ -1,10 +1,18 @@
 import { getFiles } from "./src/files";
+import { HeadersFiles } from "./src/headers";
 
-let array: string[] = [];
+export type CodeError = {
+  file: string;
+  line: number;
+  error: string;
+}
 
 async function main() {
+  const headers = new HeadersFiles();
+  let array: string[] = [];
+
   array = await getFiles(".", "h");
-  console.log(array);
+  headers.run(array);
 }
 
 main();
