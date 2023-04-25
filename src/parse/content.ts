@@ -33,11 +33,26 @@ function cleanSpaces(line: string): string {
 function getLines(content: string): string[] {
     let line: string = "";
     let lines: string[] = [];
+    let twoLines: boolean = false;
 
     for (const letter of content) {
         if (letter == "\n" || letter == "\r") {
+            if (twoLines) {
+                let previousLines = lines.at(-1);
+
+                if (!previousLines)
+                    continue;
+                previousLines = previousLines.slice(0, -1);
+                twoLines = false;
+                line = cleanSpaces(line);
+                lines[lines.length - 1] = previousLines.concat(line);
+                line = "";
+                continue;
+            }
             if (line.length <= 0)
                 continue;
+            if (line.at(-1) == "\\")
+            twoLines = true;
             line = cleanSpaces(line);
             lines.push(line);
             line = "";
