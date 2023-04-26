@@ -25,4 +25,4 @@ jobs:
             - name: "⚙️ Build image"
               run: |
                 docker build . --tag ghcr.io/tekmath/gc-style:latest
-                docker push ghcr.io/TekMath/gc-style:latest
+                docker push ghcr.io/tekmath/gc-style:latest
