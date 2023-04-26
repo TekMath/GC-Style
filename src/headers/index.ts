@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { CodeError } from "@/index";
+import { CodeError } from "../../index";
 import { logs } from "../utils/logs"
 import { definitionsParams } from "./definitions/params";
 

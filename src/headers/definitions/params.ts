@@ -1,5 +1,5 @@
 import { logs } from "../../utils/logs"
-import { CodeError } from "@/index";
+import { CodeError } from "../../../index";
 import { getLines } from "../../parse/content";
 import { STYLE_ERROR_CODES } from "../../utils/constants"
 

@@ -1,4 +1,4 @@
-import { CodeError } from "@/index";
+import { CodeError } from "../../index";
 
 function exportDisplayErrors(errors: CodeError[]) {
     const styleIcon = "🫐";
