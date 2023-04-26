@@ -16,16 +16,48 @@ function hasParams(lineArray: string[]): boolean {
     return true;
 }
 
-function unusedParams(fileContent: string): CodeError | undefined {
+function unusedParams(fileContent: string): CodeError[] | undefined {
     const lines: string[] = getLines(fileContent);
+    let params: string[] = [];
+    let arrayIndex: number = 1;
+    let errors: CodeError[] = [];
+    let lineIndex = 0;
 
     for (const line of lines) {
         const lineArray: string[] = line.split(" ");
 
-        if (lineArray[0] != "#define")
+        lineIndex++;
+        arrayIndex = 1;
+        params = [];
+        if (lineArray[0] != "#define" || !hasParams(lineArray))
             continue;
-        if (hasParams(lineArray))
-            console.log(line);
+        params.push(lineArray[1].split("(")[1].replace(')', ''));
+        while (params.at(-1)?.at(-1) == ',') {
+            params[params.length - 1] = params[params.length - 1].replace(',', '');
+            arrayIndex += 1;
+            params.push(lineArray[arrayIndex].replace(')', ''));
+        }
+        for (const param of params) {
+            let occurenceFind: boolean = false;
+
+            while (arrayIndex < lineArray.length - 1) {
+                arrayIndex += 1;
+
+                if (lineArray[arrayIndex].includes(param)) {
+                    occurenceFind = true;
+                    break;
+                }
+            }
+            if (!occurenceFind) {
+                const error: CodeError = {
+                    file: "undefined",
+                    line: lineIndex,
+                    error: "D5 - Macros: Params unused."
+                };
+                errors.push(error);
+            }
+        }
+        console.log(errors);
     }
     return undefined;
 }
@@ -37,11 +69,11 @@ function unusedParams(fileContent: string): CodeError | undefined {
  */
 function definitionsParams(fileContent: string): CodeError[] {
     let errorsArray: CodeError[] = [];
-    let error: CodeError | undefined;
+    let errors: CodeError[] | undefined;
 
-    error = unusedParams(fileContent);
-    if (error)
-        errorsArray.push(error);
+    errors = unusedParams(fileContent);
+    if (errors)
+        errorsArray.concat(errors);
     return errorsArray;
 }
 

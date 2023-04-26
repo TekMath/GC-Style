@@ -49,8 +49,6 @@ function getLines(content: string): string[] {
                 line = "";
                 continue;
             }
-            if (line.length <= 0)
-                continue;
             if (line.at(-1) == "\\")
             twoLines = true;
             line = cleanSpaces(line);
