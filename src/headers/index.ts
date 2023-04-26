@@ -10,12 +10,17 @@ class HeadersFiles {
         for (const file of filesArray) {
             const fileExtention = file.split(".");
             const fileContent = fs.readFileSync(file,'utf8');
+            let errors: CodeError[] = []; 
 
             if (fileExtention.length < 2 || fileExtention.at(-1) != "h") {
                 logs.error("File extention", "The file must be a header");
                 return [];
             }
-            errorsArray = errorsArray.concat(definitionsParams(fileContent));
+            errors = definitionsParams(fileContent);
+            for (const index in errors) {
+                errors[index].file = file;
+            }
+            errorsArray = errorsArray.concat(errors);
         }
         return errorsArray;
     }
