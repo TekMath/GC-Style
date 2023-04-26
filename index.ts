@@ -1,5 +1,7 @@
 import { getFiles } from "./src/parse/files";
 import { HeadersFiles } from "./src/headers";
+import { exportDisplayErrors } from "./src/export/display";
+import { exportFileErrors } from "./src/export/file"
 
 export type CodeError = {
   file: string;
@@ -15,7 +17,8 @@ async function main() {
   array = await getFiles(".", "h");
   errors = errors.concat(headers.run(array));
 
-  console.log(errors);
+  exportDisplayErrors(errors);
+  exportFileErrors(errors);
 }
 
 main();
