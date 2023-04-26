@@ -1,6 +1,7 @@
 import { logs } from "../../utils/logs"
 import { CodeError } from "@/index";
-import { getLines } from "../../../src/parse/content";
+import { getLines } from "../../parse/content";
+import { STYLE_ERROR_CODES } from "../../utils/constants"
 
 /**
  * Check if a definition/macro has params
@@ -16,6 +17,11 @@ function hasParams(lineArray: string[]): boolean {
     return true;
 }
 
+/**
+ * Search all unused params and add it to an error array
+ * @param fileContent Content of a header files
+ * @returns Array of errors
+ */
 function unusedParams(fileContent: string): CodeError[] | undefined {
     const lines: string[] = getLines(fileContent);
     let params: string[] = [];
@@ -52,14 +58,13 @@ function unusedParams(fileContent: string): CodeError[] | undefined {
                 const error: CodeError = {
                     file: "undefined",
                     line: lineIndex,
-                    error: "D5 - Macros: Params unused."
+                    error: STYLE_ERROR_CODES.MACROS_UNUSED_PARAMS
                 };
                 errors.push(error);
             }
         }
-        console.log(errors);
     }
-    return undefined;
+    return errors.length > 0 ? errors : undefined;
 }
 
 /**
@@ -73,7 +78,7 @@ function definitionsParams(fileContent: string): CodeError[] {
 
     errors = unusedParams(fileContent);
     if (errors)
-        errorsArray.concat(errors);
+        errorsArray = errorsArray.concat(errors);
     return errorsArray;
 }
 

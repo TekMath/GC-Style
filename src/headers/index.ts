@@ -15,7 +15,7 @@ class HeadersFiles {
                 logs.error("File extention", "The file must be a header");
                 return [];
             }
-            errorsArray.concat(definitionsParams(fileContent));
+            errorsArray = errorsArray.concat(definitionsParams(fileContent));
         }
         return errorsArray;
     }

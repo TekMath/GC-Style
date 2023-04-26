@@ -10,9 +10,12 @@ export type CodeError = {
 async function main() {
   const headers = new HeadersFiles();
   let array: string[] = [];
+  let errors: CodeError[] = [];
 
   array = await getFiles(".", "h");
-  headers.run(array);
+  errors = errors.concat(headers.run(array));
+
+  console.log(errors);
 }
 
 main();
