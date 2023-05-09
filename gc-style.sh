@@ -3,7 +3,7 @@
 GC_REPOS="tekmath/gc-style"
 GC_TOKEN=$(curl https://ghcr.io/token\?scope\="repository:$GC_REPOS:pull" | cut -d ':' -f 2 | cut -d '"' -f 2)
 GC_STATUS=$(curl -I -f -s -o /dev/null -H "Authorization: Bearer $GC_TOKEN" "https://ghcr.io/v2/$GC_REPOS/manifests/latest" && echo 0 || echo 1)
-GC_FILE="gc-style-report.txt"
+GC_FILE="gc-style-report.log"
 rm -f "$GC_FILE"
 
 ### Check if repository exist
